@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="RoomPaintCalculator"/>
+        <attribute name="authors" value=""/>
+        <attribute name="about" value="Computes wall and ceiling/floor square footage and paint gallons needed."/>
+        <attribute name="saved" value="2026-11-11 09:12:46 PM"/>
+        <attribute name="created" value="2026-11-11 09:10:00 PM"/>
+        <attribute name="edited" value="2026-11-11 09:10:00 PM"/>
+        <attribute name="edited" value="c2hhbWE7REVTS1RPUC1HSFRTUVVGOzIwMjYtMTEtMTE7MDk6MTI6NDYgUE07MTszMDM5"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="response" type="String" array="False" size=""/>
+            <declare name="length" type="Real" array="False" size=""/>
+            <declare name="width" type="Real" array="False" size=""/>
+            <declare name="height" type="Real" array="False" size=""/>
+            <declare name="wallSqFt" type="Real" array="False" size=""/>
+            <declare name="wallGallons" type="Real" array="False" size=""/>
+            <declare name="ceilingFloorSqFt" type="Real" array="False" size=""/>
+            <declare name="ceilingFloorGallons" type="Real" array="False" size=""/>
+            <output expression="&quot;Do you want to run the program? (Yes or No)&quot;" newline="True"/>
+            <input variable="response"/>
+            <while expression="response == &quot;Yes&quot; || response == &quot;yes&quot; || response == &quot;YES&quot; || response == &quot;Y&quot; || response == &quot;y&quot;">
+                <output expression="&quot;Enter room length:&quot;" newline="True"/>
+                <input variable="length"/>
+                <output expression="&quot;Enter room width:&quot;" newline="True"/>
+                <input variable="width"/>
+                <output expression="&quot;Enter room height:&quot;" newline="True"/>
+                <input variable="height"/>
+                <assign variable="wallSqFt" expression="computeWallSqFt(length, width, height)"/>
+                <assign variable="wallGallons" expression="wallSqFt / 50"/>
+                <assign variable="ceilingFloorSqFt" expression="computeCeilingFloorArea(length, width)"/>
+                <assign variable="ceilingFloorGallons" expression="ceilingFloorSqFt / 50"/>
+                <output expression="&quot;Wall Square Footage: &quot; &amp; ToFixed(wallSqFt, 2)" newline="True"/>
+                <output expression="&quot;Gallons needed for walls: &quot; &amp; ToFixed(wallGallons, 2)" newline="True"/>
+                <output expression="&quot;Ceiling/Floor Square Footage: &quot; &amp; ToFixed(ceilingFloorSqFt, 2)" newline="True"/>
+                <output expression="&quot;Gallons needed for ceiling or floor: &quot; &amp; ToFixed(ceilingFloorGallons, 2)" newline="True"/>
+                <output expression="&quot;Do you want to run the program again? (Yes or No)&quot;" newline="True"/>
+                <input variable="response"/>
+            </while>
+        </body>
+    </function>
+    <function name="computeCeilingFloorArea" type="Real" variable="area">
+        <parameters>
+            <parameter name="length" type="Real" array="False"/>
+            <parameter name="width" type="Real" array="False"/>
+        </parameters>
+        <body>
+            <declare name="area" type="Real" array="False" size=""/>
+            <assign variable="area" expression="length * width"/>
+        </body>
+    </function>
+    <function name="computeWallSqFt" type="Real" variable="wallArea">
+        <parameters>
+            <parameter name="length" type="Real" array="False"/>
+            <parameter name="width" type="Real" array="False"/>
+            <parameter name="height" type="Real" array="False"/>
+        </parameters>
+        <body>
+            <declare name="wallArea" type="Real" array="False" size=""/>
+            <assign variable="wallArea" expression="(2 * length * height) + (2 * width * height)"/>
+        </body>
+    </function>
+</flowgorithm>

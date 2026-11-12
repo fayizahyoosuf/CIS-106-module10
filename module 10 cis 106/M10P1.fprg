@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="SalesForecast"/>
+        <attribute name="authors" value=""/>
+        <attribute name="about" value="Computes next month's sales forecast using a loop and a function."/>
+        <attribute name="saved" value="2026-11-11 09:00:06 PM"/>
+        <attribute name="created" value="2026-11-11 08:55:00 PM"/>
+        <attribute name="edited" value="2026-11-11 08:55:00 PM"/>
+        <attribute name="edited" value="c2hhbWE7REVTS1RPUC1HSFRTUVVGOzIwMjYtMTEtMTE7MDk6MDA6MDYgUE07MTszMDMy"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="response" type="String" array="False" size=""/>
+            <declare name="lastName" type="String" array="False" size=""/>
+            <declare name="month" type="String" array="False" size=""/>
+            <declare name="sales" type="Real" array="False" size=""/>
+            <declare name="forecastSales" type="Real" array="False" size=""/>
+            <output expression="&quot;Do you want to run the program? (Yes or No)&quot;" newline="True"/>
+            <input variable="response"/>
+            <while expression="response == &quot;Yes&quot; || response == &quot;yes&quot; || response == &quot;YES&quot; || response == &quot;Y&quot; || response == &quot;y&quot;">
+                <output expression="&quot;Enter last name:&quot;" newline="True"/>
+                <input variable="lastName"/>
+                <output expression="&quot;Enter month (e.g., Jan, Feb, Mar):&quot;" newline="True"/>
+                <input variable="month"/>
+                <output expression="&quot;Enter sales:&quot;" newline="True"/>
+                <input variable="sales"/>
+                <assign variable="forecastSales" expression="computeForecast(month, sales)"/>
+                <output expression="&quot;Last Name: &quot; &amp; lastName" newline="True"/>
+                <output expression="&quot;Next Month's Forecast: $&quot; &amp; ToFixed(forecastSales, 2)" newline="True"/>
+                <output expression="&quot;Do you want to run the program again? (Yes or No)&quot;" newline="True"/>
+                <input variable="response"/>
+            </while>
+        </body>
+    </function>
+    <function name="computeForecast" type="Real" variable="nextSales">
+        <parameters>
+            <parameter name="month" type="String" array="False"/>
+            <parameter name="sales" type="Real" array="False"/>
+        </parameters>
+        <body>
+            <declare name="forecastPercent" type="Real" array="False" size=""/>
+            <declare name="nextSales" type="Real" array="False" size=""/>
+            <if expression="month == &quot;Jan&quot; || month == &quot;jan&quot; || month == &quot;Feb&quot; || month == &quot;feb&quot; || month == &quot;Mar&quot; || month == &quot;mar&quot;">
+                <then>
+                    <assign variable="forecastPercent" expression="0.10"/>
+                </then>
+                <else>
+                    <if expression="month == &quot;Apr&quot; || month == &quot;apr&quot; || month == &quot;May&quot; || month == &quot;may&quot; || month == &quot;Jun&quot; || month == &quot;jun&quot;">
+                        <then>
+                            <assign variable="forecastPercent" expression="0.15"/>
+                        </then>
+                        <else>
+                            <if expression="month == &quot;Jul&quot; || month == &quot;jul&quot; || month == &quot;Aug&quot; || month == &quot;aug&quot; || month == &quot;Sep&quot; || month == &quot;sep&quot;">
+                                <then>
+                                    <assign variable="forecastPercent" expression="0.20"/>
+                                </then>
+                                <else>
+                                    <if expression="month == &quot;Oct&quot; || month == &quot;oct&quot; || month == &quot;Nov&quot; || month == &quot;nov&quot; || month == &quot;Dec&quot; || month == &quot;dec&quot;">
+                                        <then>
+                                            <assign variable="forecastPercent" expression="0.25"/>
+                                        </then>
+                                        <else>
+                                            <assign variable="forecastPercent" expression="0.0"/>
+                                        </else>
+                                    </if>
+                                </else>
+                            </if>
+                        </else>
+                    </if>
+                </else>
+            </if>
+            <assign variable="nextSales" expression="sales * (1 + forecastPercent)"/>
+        </body>
+    </function>
+</flowgorithm>

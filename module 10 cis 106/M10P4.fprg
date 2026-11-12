@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="TrainTicketCalculator"/>
+        <attribute name="authors" value=""/>
+        <attribute name="about" value="Computes train ticket price based on miles from downtown Chicago and sums all ticket prices."/>
+        <attribute name="saved" value="2026-11-11 09:32:59 PM"/>
+        <attribute name="created" value="2026-11-11 09:29:00 PM"/>
+        <attribute name="edited" value="2026-11-11 09:29:00 PM"/>
+        <attribute name="edited" value="c2hhbWE7REVTS1RPUC1HSFRTUVVGOzIwMjYtMTEtMTE7MDk6MzI6NTkgUE07MTszMDQ1"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="response" type="String" array="False" size=""/>
+            <declare name="lastName" type="String" array="False" size=""/>
+            <declare name="miles" type="Real" array="False" size=""/>
+            <declare name="ticketPrice" type="Real" array="False" size=""/>
+            <declare name="totalTickets" type="Real" array="False" size=""/>
+            <assign variable="totalTickets" expression="0.0"/>
+            <output expression="&quot;Do you want to run the program? (Yes or No)&quot;" newline="True"/>
+            <input variable="response"/>
+            <while expression="response == &quot;Yes&quot; || response == &quot;yes&quot; || response == &quot;YES&quot; || response == &quot;Y&quot; || response == &quot;y&quot;">
+                <output expression="&quot;Enter last name:&quot;" newline="True"/>
+                <input variable="lastName"/>
+                <output expression="&quot;Enter miles from downtown Chicago:&quot;" newline="True"/>
+                <input variable="miles"/>
+                <assign variable="ticketPrice" expression="computeTicketPrice(miles)"/>
+                <assign variable="totalTickets" expression="totalTickets + ticketPrice"/>
+                <output expression="&quot;Last Name: &quot; &amp; lastName" newline="True"/>
+                <output expression="&quot;Ticket Price: $&quot; &amp; ToFixed(ticketPrice, 2)" newline="True"/>
+                <output expression="&quot;Do you want to enter another passenger? (Yes or No)&quot;" newline="True"/>
+                <input variable="response"/>
+            </while>
+            <output expression="&quot;Total price of all tickets: $&quot; &amp; ToFixed(totalTickets, 2)" newline="True"/>
+        </body>
+    </function>
+    <function name="computeTicketPrice" type="Real" variable="price">
+        <parameters>
+            <parameter name="miles" type="Real" array="False"/>
+        </parameters>
+        <body>
+            <declare name="price" type="Real" array="False" size=""/>
+            <if expression="miles &gt;= 30">
+                <then>
+                    <assign variable="price" expression="12.0"/>
+                </then>
+                <else>
+                    <if expression="miles &gt;= 20">
+                        <then>
+                            <assign variable="price" expression="10.0"/>
+                        </then>
+                        <else>
+                            <if expression="miles &gt;= 10">
+                                <then>
+                                    <assign variable="price" expression="8.0"/>
+                                </then>
+                                <else>
+                                    <assign variable="price" expression="5.0"/>
+                                </else>
+                            </if>
+                        </else>
+                    </if>
+                </else>
+            </if>
+        </body>
+    </function>
+</flowgorithm>
